@@ -17,12 +17,7 @@ int main(void)
         scanf("%1d", &vetA[i]);
     for (i = 0; i < m; i++)
         scanf("%1d", &vetB[i]);
-    if ((vetA[0] == 0 && n == 1) || (vetB[0] == 0 && m == 1))
-    {
-        printf("0\n");
-        return 0;
-    }
-    else    
+    if (vetA[0] && vetB[0])
     {
         for (i = n - 1; i >= 0; i--)
         {
@@ -47,6 +42,11 @@ int main(void)
         for (i = 1; i < n + m; i++)
             printf("%d", vetC[i]);
         printf("\n");
+    }
+    else
+    {
+        printf("0\n");
+        return 0;
     }
     return 0;
 }
