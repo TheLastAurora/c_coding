@@ -27,11 +27,13 @@ int main(void)
     if (!n || n > 30)
         return 0;
     aluno *matriculado = cria_turma(matriculado);
+    if (!matriculado)
+        return 0;
     for (i = 0; i < n; i++)
         insere_turma(&matriculado);
     ordena_alunos(&matriculado);
     while (matriculado->proximo)
-    {
+    {   
         printf("Matric.: %d Nome: %s Data Nasc: %d/%d/%d\n", matriculado->matricula, matriculado->nome, matriculado->dia, matriculado->mes, matriculado->ano);
         matriculado = matriculado->proximo;
     }
@@ -82,13 +84,14 @@ void ordena_alunos(aluno **matriculado)
             if (aux->anterior)
                 aux->anterior->proximo = aux->proximo;
             aux->proximo->proximo->anterior = aux; // 3 olha para trás em 1
-            post = aux->proximo; // Guarda o 2
-            aux->proximo = aux->proximo->proximo; // 1 olha para frente em 3
-            ant = aux->anterior; // Guarda o anterior a 1
-            aux->anterior = post; // 1 olha para trás em 2
-            post->anterior = ant; // 2 olha para trás em L-86
-            post->proximo = aux; // 2 olha para frente em 1
-            aux = aux->proximo; // Avanca o 
+            post = aux->proximo;                   // Guarda o 2
+            aux->proximo = aux->proximo->proximo;  // 1 olha para frente em 3
+            ant = aux->anterior;                   // Guarda o anterior a 1
+            aux->anterior = post;                  // 1 olha para trás em 2
+            post->anterior = ant;                  // 2 olha para trás em L-87
+            post->proximo = aux;                   // 2 olha para frente em 1
+            if (aux->proximo->proximo)
+                aux = aux->proximo; // Avanca o aux
             continue;
         }
         if (aux->ano == aux->proximo->ano)
